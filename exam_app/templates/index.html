@@ -7,53 +7,82 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
 </head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <body>
-    <div class="chicken">
-        {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-            <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
-            {% endfor %}
-            </ul>
-            {% endif %}
-        <h2>Registration</h2>
+        <div class="container">
+                <div class="row justify-content-around">
+                    {% if messages %}
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="{{ message.tags }}" {% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
         
-        </ul>
+                    <div id="registration" class="col-7">
+                        <h1>Registration</h1><br>
+                        
+                            <form action="/create_user" method="POST">
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        {% csrf_token %}
+                                        <label>First Name:</label><br>
+                                        <input type="text" name="firstname" class="form-control " placeholder="First name">
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Last Name:</label><br>
+                                        <input type="text" name="lastname" class="form-control" placeholder="Last name">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group" >
+                                        <label>Email:</label>
+                                        <input type="email" name="email" class="form-control" placeholder="email">
+                                </div>
         
-        <form action="/create_user" method="POST">
-            {% csrf_token %}
-            <p>First Name: <input type="text" name="firstname"></p>
-            <p>Last Name: <input type="text" name="lastname"></p>
-            <p>Email: <input type="text" name="email"></p>
-            <p>Password: <input type="password" name="password"></p>
-            <p>Confirm PW: <input type="password" name="confirmpassword"></p>
-            <input type="submit" value="Register">
-        </form>
-    </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">
+                                        <label>Password:</label>
+                                        <input type="password" name="password" class="form-control" placeholder="password">
+                                    </div>
+        
+                                    <div class="form-group col-md-4">
+                                            <label>Confirm Password:</label>
+                                            <input type="password" name="confirmpassword"class="form-control" placeholder="password">
+                                        </div>
+                                </div>
+        
+                
+                     
+                            <input type="submit" class="btn btn-primary" value="Register">
+                        </form>
+                    </div>
+        
+                    <div id="login" class="col-3">
+                        <h1>Login</h1><br>
+                        <form action="/login"" method="POST">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label class="col-sm-2 col-form-label">Email:</label><br>
+                                <input type="email" name="email" class="form-control"><br>
+                            </div>
+                            <div class="form-group">
+                                <label>Password:</label><br>
+                                <input type="password" name="password" class="form-control"><br>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Login">
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <div class="chicken login">
-        <h2>Log in to account</h2>
-        <form action ="/login" method="POST">
-            {% csrf_token %}
-            <p>Email: <input type="text" name='email'></p>
-            <p>Password: <input type="password" name='password'></p>
-            <input type="submit" value="Log In">
-
-        </form>
-    </div>
 
 
+
+    
 </body>
-<style>
-    .chicken {
-        display: inline-block;
-        vertical-align: top;
-    }
 
-    .login {
-        margin-left: 100px;
-    }
-</style>
 
 </html>
