@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    Hello, {{request.session.user_firstname}}
+    <a class="newjobbutton" href="/newjob">Click to Add New Job!</a>
+    <a href="/logout">log out</a>
+
+    <table>
+        <h3>All Jobs Here</h3>
+        <thead>
+            <th class=>Job</th>
+            <th class="tableheader">Location</th>
+            <th class="tableheader">Actions</th>
+        </thead>
+        {%for job in alljobs%}
+         <tr>
+            <td>{{job.title}}</td>
+            <td class="tableheader">{{job.location}}</td> 
+            <td class="tableheader"><a href="/view_job/{{job.id}}">View</a> 
+              
+            <a href="/addjobtolist/{{job.id}}">Add</a> 
+            <!-- #include if statement -->
+            {%if job.user.id == request.session.user_id%}
+                <a href="/removejob/{{job.id}}">Remove</a>   
+                <a href="/editjob/{{job.id}}">Edit</a>   
+            {%endif%}
+            </td>
+         </tr>
+        {%endfor%}
+    </table>
+    <table>
+        <thead>
+            <th>Jobs</th>
+            <th>Actions</th>
+        </thead>
+        <tbody>
+            {%for job in jobs_to_add.all%}
+                <tr>
+                    <td>{{job_to_add.title}}</td>
+                    <td>chicken</td>
+                </tr>
+            {%endfor%}
+        </tbody>
+  
+    </table>
+
+  
+    
+</body>
+
+<style>
+    .newjobbutton{
+        margin-left: 300px;
+    }
+    .tableheader{
+        
+        padding-left: 80px;
+       color:black;
+    }
+</style>
+</html>

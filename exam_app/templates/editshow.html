@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+     <h3>Hello {{job.user.first_name}}! You can edit your job here</h3>
+     {% if messages %}
+     <ul class="messages">
+         {%for message in messages%}
+             <li {%if message.tags %} class="{{message.tags}}" {% endif %}>{{message}}</li>
+         {% endfor %}
+     </ul>
+     {% endif %} 
+     <form action = "/updatejob/{{job.id}}" method='POST'>
+        {% csrf_token %}
+        <p>Job Title:<input type="text" value="{{job.title}}"" name="title"></p> 
+        <p>Job Description:<input type="text" value="{{job.description}}"" name="description"></p> 
+        <p>Job Location:<input type="text" value= "{{job.location}}"" name="location"></p> 
+        <input type="submit" value="Submit">
+
+    </form> 
+    <form action = "/success", method='POST'>
+        {% csrf_token %}
+        <input type="submit" value="Cancel">
+    </form>
+</body>
+</html>

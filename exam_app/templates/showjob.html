@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Hi {{request.session.user_firstname}}! These are the job details:</h2> 
+    <a href="/success">Dashboard</a>
+    <a href="/logout">Log Out</a>
+
+   
+    <h4>YOUR JOB: {{jobtoshow.title}}</h4>
+
+    <div class = "description_box">
+        <p>Job Description: {{jobtoshow.description}}</p>
+        <p>Job Location: {{jobtoshow.location}}</p>
+        <p>posted by: {{jobtoshow.user.first_name}}</p>
+        <p>Posted on: {{jobtoshow.created_at}}</p>
+        <p></p>
+
+        
+
+    </div>
+</body>
+<style>
+    .description_box {
+        border: 1px solid black;
+        width: 300px;
+        
+        
+    }
+
+    
+
+</style>
+</html>
