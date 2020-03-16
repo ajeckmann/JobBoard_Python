@@ -54,11 +54,12 @@ def logout(request):
 
 def success(request):
     if not "user_id" in request.session:
-        messages.error(request, "na-ah, you gotta log in, sunny")
+        messages.error(request, " you need to log in, sunny")
         return redirect('/')
 
     context= {
-        'alljobs': Job.objects.all()
+        'alljobs': Job.objects.all().order_by('-created_at'),
+        'currentuser': User.objects.get(id=request.session['user_id'])
     }
     return render(request, 'dashboard.html', context)
 
@@ -124,12 +125,26 @@ def add_personaljob(request, job_id):
     
     
     job_to_add = Job.objects.get(id=job_id)
-    job_to_add.assigned=User.objects.get(id=request.session['user_id'])
-    job_to_add.save()
+    user_to_add = User.objects.get(id=request.session['user_id'])
+    user_to_add.assignedjobs.add(job_to_add)
+    
+    user_to_add.save()
    
     context ={
-        "jobs_to_add": Job.objects.filter(assigned=request.session['user_firstname'])
-    } 
+        'currentuser': user_to_add,
+        'alljobs': Job.objects.all().order_by('-created_at')
+    }
+        
     
     return render(request, 'dashboard.html', context)
     
+    
+
+
+def unassign_job (request, job_id):
+    job_to_unassign = Job.objects.get(id=job_id)
+    User_to_Remove_from = User.objects.get(id=request.session['user_id'])
+    User_to_Remove_from.assignedjobs.remove(job_to_unassign)
+    User_to_Remove_from.save()
+
+    return redirect('/success')

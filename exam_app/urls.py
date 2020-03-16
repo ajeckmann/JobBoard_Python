@@ -13,7 +13,8 @@ urlpatterns=[
     path('removejob/<int:job_id>', views.remove_job),
     path('editjob/<int:job_id>', views.edit_job),
     path('updatejob/<int:job_id>', views.update_job),
-    path('addjobtolist/<int:job_id>', views.add_personaljob)
+    path('addjobtolist/<int:job_id>', views.add_personaljob),
+    path('deletejobfromlist/<int:job_id>', views.unassign_job)
 
   
 ]
